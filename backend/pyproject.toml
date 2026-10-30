@@ -1,0 +1,15 @@
+[project]
+name = "khopviec-backend"
+version = "1.0.0"
+requires-python = ">=3.11"
+
+[tool.ruff]
+line-length = 130
+target-version = "py311"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM"]
+ignore = ["B008"]  # File(...), Query(...) làm giá trị mặc định là cách dùng chuẩn của FastAPI
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

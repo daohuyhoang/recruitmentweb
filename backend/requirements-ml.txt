@@ -1,0 +1,5 @@
+# Thuật toán 3 (Sentence-BERT) và tách từ tiếng Việt. Không bắt buộc:
+# thiếu các gói này hệ thống vẫn chạy, điểm ngữ nghĩa để trống và trọng số được chia lại.
+-r requirements.txt
+sentence-transformers>=3.0
+underthesea>=6.8
