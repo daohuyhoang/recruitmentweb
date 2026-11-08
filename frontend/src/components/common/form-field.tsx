@@ -4,7 +4,7 @@ import { Label } from "@/components/ui/label"
 
 export function FormField({ id, label, hint, children }: { id: string; label: string; hint?: string; children: ReactNode }) {
   return (
-    <div className="grid gap-2">
+    <div className="grid content-start gap-2">
       <Label htmlFor={id} className="font-semibold">
         {label}
       </Label>

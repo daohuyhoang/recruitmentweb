@@ -95,6 +95,62 @@ export type Cv = {
   skills: CvSkill[]
 }
 
+export type CvPersonal = { full_name: string; email: string; phone: string; address: string; headline: string }
+export type CvExperience = { company: string; position: string; start: string | null; end: string | null; description: string }
+export type CvEducation = { school: string; major: string; degree: string; start: string | null; end: string | null; gpa: string | null }
+export type CvProject = { name: string; role: string; start: string | null; end: string | null; description: string; link: string | null }
+export type CvCertificate = { name: string; issuer: string; year: number | null }
+
+export type CvContent = {
+  personal: CvPersonal
+  objective: string
+  experiences: CvExperience[]
+  educations: CvEducation[]
+  projects: CvProject[]
+  certificates: CvCertificate[]
+  skills: string[]
+  strengths: string
+}
+
+export type CvDetail = Cv & { content: CvContent | null }
+
+export type IssueSeverity = "high" | "medium" | "low"
+export type CvIssue = { code: string; section: string; severity: IssueSeverity; message: string; suggestion: string; field: string | null }
+export type CvSectionState = "ok" | "warning" | "missing"
+
+export type CvEvaluation = {
+  id: number
+  cv_id: number
+  job_id: number | null
+  job_title: string | null
+  overall_score: number
+  issues: CvIssue[]
+  sections: Record<string, CvSectionState>
+  created_at: string
+}
+
+export type SkillOption = { id: number; name: string }
+
+export type Gender = "male" | "female" | "other"
+
+export type Profile = {
+  user_id: number
+  headline: string | null
+  date_of_birth: string | null
+  gender: Gender | null
+  address: string | null
+  city_id: number | null
+  desired_category_id: number | null
+  desired_salary_min: Decimal | null
+  desired_salary_max: Decimal | null
+  years_of_experience: Decimal | null
+  education_level: EducationLevel | null
+  summary: string | null
+  is_searchable: boolean
+}
+
+export type ProfileInput = Omit<Profile, "user_id">
+
 export type MatchComponents = { coverage: number; tfidf: number; semantic: number | null; criteria: number }
 export type MatchSkill = { skill_id: number; name: string; required: boolean; matched: boolean }
 

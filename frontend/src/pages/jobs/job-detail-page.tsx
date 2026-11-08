@@ -77,9 +77,16 @@ function MatchPanel({ job }: { job: JobDetail }) {
           <p className="text-[13px] text-muted-foreground">Đang so khớp CV với tin tuyển dụng…</p>
         </div>
       ) : error ? (
-        <p className="p-5 text-muted-foreground">
-          {error instanceof ApiError && error.status === 404 ? "Bạn chưa có CV để so khớp." : (error as Error).message}
-        </p>
+        <div className="p-5">
+          <p className="text-muted-foreground">
+            {error instanceof ApiError && error.status === 404 ? "Bạn chưa có CV để so khớp." : (error as Error).message}
+          </p>
+          {error instanceof ApiError && error.status === 404 && (
+            <ButtonLink className="mt-4 h-11 w-full font-bold uppercase" to="/cv">
+              Tải CV lên
+            </ButtonLink>
+          )}
+        </div>
       ) : data ? (
         <MatchSummary match={data} />
       ) : null}
@@ -152,10 +159,10 @@ export function JobDetailPage() {
   }
 
   const applyButton = applied ? (
-    <Button disabled className="h-11 bg-white px-5 font-bold text-hero uppercase disabled:opacity-100">
+    <ButtonLink to={`/ho-so-da-nop?ho-so=${job.application_id}`} className="h-11 bg-white px-5 font-bold text-hero uppercase hover:bg-white/90">
       <CircleCheck data-icon="inline-start" />
-      Đã ứng tuyển
-    </Button>
+      Xem hồ sơ đã nộp
+    </ButtonLink>
   ) : (
     <Button
       onClick={handleApplyClick}

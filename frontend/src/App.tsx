@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, type ReactNode } from "react"
 import { Navigate, Outlet, Route, Routes, useLocation } from "react-router-dom"
 import { Toaster } from "sonner"
 
@@ -8,7 +8,13 @@ import { RequireAuth } from "@/features/auth/require-auth"
 import { useTheme } from "@/lib/theme"
 import { LoginPage } from "@/pages/auth/login-page"
 import { RegisterPage } from "@/pages/auth/register-page"
+import { AccountPage } from "@/pages/candidate/account-page"
+import { ApplicationsPage } from "@/pages/candidate/applications-page"
+import { CvEditPage } from "@/pages/candidate/cv-edit-page"
+import { CvExportPage } from "@/pages/candidate/cv-export-page"
+import { CvListPage } from "@/pages/candidate/cv-list-page"
 import { MatchedJobsPage } from "@/pages/candidate/matched-jobs-page"
+import { SavedJobsPage } from "@/pages/candidate/saved-jobs-page"
 import { HomePage } from "@/pages/home-page"
 import { JobDetailPage } from "@/pages/jobs/job-detail-page"
 import { JobsPage } from "@/pages/jobs/jobs-page"
@@ -31,6 +37,8 @@ function PublicLayout({ withFooter = true }: { withFooter?: boolean }) {
   )
 }
 
+const candidateOnly = (page: ReactNode) => <RequireAuth role="candidate">{page}</RequireAuth>
+
 export default function App() {
   const { theme } = useTheme()
   return (
@@ -48,12 +56,26 @@ export default function App() {
               </RequireAuth>
             }
           />
+          <Route path="/cv" element={candidateOnly(<CvListPage />)} />
+          <Route path="/cv/:id" element={candidateOnly(<CvEditPage />)} />
+          <Route path="/ho-so-da-nop" element={candidateOnly(<ApplicationsPage />)} />
+          <Route path="/viec-da-luu" element={candidateOnly(<SavedJobsPage />)} />
+          <Route
+            path="/tai-khoan"
+            element={
+              <RequireAuth>
+                <AccountPage />
+              </RequireAuth>
+            }
+          />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
         <Route element={<PublicLayout withFooter={false} />}>
           <Route path="/dang-nhap" element={<LoginPage />} />
           <Route path="/dang-ky" element={<RegisterPage />} />
         </Route>
+        {/* Trang xuất PDF không có header, footer để bản in chỉ còn nội dung CV */}
+        <Route path="/cv/:id/xuat-pdf" element={candidateOnly(<CvExportPage />)} />
       </Routes>
       <Toaster theme={theme} position="top-right" richColors closeButton />
     </>

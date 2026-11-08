@@ -22,6 +22,26 @@ export function formatDateTime(iso: string): string {
   return `${pad(d.getHours())}:${pad(d.getMinutes())}, ${pad(d.getDate())}/${pad(d.getMonth() + 1)}/${d.getFullYear()}`
 }
 
+/** "2024-09" -> "09/2024" */
+export function formatMonth(value: string | null | undefined): string {
+  if (!value) return ""
+  const [year, month] = value.split("-")
+  return month ? `${month}/${year}` : year
+}
+
+/** Khoảng thời gian trên CV: "09/2024 – 02/2025", chưa có ngày kết thúc thì ghi "nay" */
+export function formatPeriod(start: string | null | undefined, end: string | null | undefined): string {
+  if (!start && !end) return ""
+  return `${formatMonth(start)} – ${end ? formatMonth(end) : "nay"}`
+}
+
+/** 1536000 -> "1,5 MB" */
+export function formatFileSize(bytes: number | null | undefined): string {
+  if (!bytes) return ""
+  if (bytes < 1024 * 1024) return `${Math.max(1, Math.round(bytes / 1024))} KB`
+  return `${formatNumber(bytes / (1024 * 1024))} MB`
+}
+
 export function formatSalary(min: NumberLike, max: NumberLike): string {
   const lo = toNumber(min)
   const hi = toNumber(max)

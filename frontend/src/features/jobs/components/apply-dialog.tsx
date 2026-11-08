@@ -1,4 +1,5 @@
 import { useEffect, useState, type FormEvent } from "react"
+import { Link } from "react-router-dom"
 import { toast } from "sonner"
 
 import { FormError } from "@/components/common/form-field"
@@ -62,7 +63,13 @@ export function ApplyDialog({ job, open, onOpenChange }: ApplyDialogProps) {
             {isLoading ? (
               <p className="text-sm text-muted-foreground">Đang tải CV…</p>
             ) : !cvs?.length ? (
-              <p className="text-sm text-muted-foreground">Bạn chưa có CV. Hãy tạo CV trước khi ứng tuyển.</p>
+              <p className="text-sm text-muted-foreground">
+                Bạn chưa có CV.{" "}
+                <Link to="/cv" className="font-semibold text-primary hover:underline">
+                  Tải CV lên hoặc tạo CV mới
+                </Link>{" "}
+                trước khi ứng tuyển.
+              </p>
             ) : (
               <RadioGroup value={cvId} onValueChange={(v) => setCvId(String(v))} className="gap-2">
                 {cvs.map((cv) => (

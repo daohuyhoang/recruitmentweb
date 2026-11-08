@@ -1,4 +1,27 @@
-import type { ApplicationStatus, EducationLevel, EmploymentType, WorkMode } from "@/types/api"
+import type { ApplicationStatus, CvSectionState, EducationLevel, EmploymentType, Gender, IssueSeverity, WorkMode } from "@/types/api"
+
+export const GENDER_LABELS: Record<Gender, string> = { male: "Nam", female: "Nữ", other: "Khác" }
+
+export const ISSUE_SEVERITY: Record<IssueSeverity, { label: string; variant: "danger" | "warning" | "secondary" }> = {
+  high: { label: "Cần sửa ngay", variant: "danger" },
+  medium: { label: "Nên sửa", variant: "warning" },
+  low: { label: "Có thể cải thiện", variant: "secondary" },
+}
+
+export const CV_SECTION_LABELS: Record<string, string> = {
+  personal: "Thông tin cá nhân",
+  objective: "Mục tiêu nghề nghiệp",
+  experiences: "Kinh nghiệm làm việc",
+  educations: "Học vấn",
+  skills: "Kỹ năng",
+  strengths: "Điểm mạnh",
+}
+
+export const CV_SECTION_STATE: Record<CvSectionState, { label: string; variant: "success" | "warning" | "danger" }> = {
+  ok: { label: "Đạt", variant: "success" },
+  warning: { label: "Cần xem lại", variant: "warning" },
+  missing: { label: "Còn thiếu", variant: "danger" },
+}
 
 export const EMPLOYMENT_TYPE_LABELS: Record<EmploymentType, string> = {
   full_time: "Toàn thời gian",

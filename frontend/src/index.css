@@ -170,6 +170,12 @@
   }
 }
 
+/* Khổ giấy khi xuất CV ra PDF bằng hộp thoại in của trình duyệt */
+@page {
+  size: A4;
+  margin: 14mm;
+}
+
 /* Họa tiết chấm mờ cho hero và banner, thay cho ảnh nền */
 @utility bg-dots {
   background-image: radial-gradient(color-mix(in oklch, var(--hero-foreground) 12%, transparent) 1px, transparent 1px);

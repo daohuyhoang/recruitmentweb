@@ -73,7 +73,35 @@ async function request<T>(method: string, path: string, options: { query?: Query
   return response.json() as Promise<T>
 }
 
+/** Tải file cần đăng nhập: thẻ <a> thường không gửi được header Authorization nên phải tải qua fetch */
+async function download(path: string, fileName: string) {
+  const token = getToken()
+  let response: Response
+  try {
+    response = await fetch(buildUrl(path), { headers: token ? { Authorization: `Bearer ${token}` } : {} })
+  } catch {
+    throw new ApiError(0, "Không kết nối được máy chủ. Kiểm tra backend đã chạy chưa.")
+  }
+  if (!response.ok) {
+    let message = `Lỗi ${response.status}`
+    try {
+      const data = await response.json()
+      if (typeof data.detail === "string") message = data.detail
+    } catch {
+      // phản hồi không phải JSON
+    }
+    throw new ApiError(response.status, message)
+  }
+  const url = URL.createObjectURL(await response.blob())
+  const link = document.createElement("a")
+  link.href = url
+  link.download = fileName
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
 export const api = {
+  download,
   get: <T>(path: string, query?: Query) => request<T>("GET", path, { query }),
   post: <T>(path: string, body?: unknown, query?: Query) => request<T>("POST", path, { body, query }),
   put: <T>(path: string, body?: unknown) => request<T>("PUT", path, { body }),

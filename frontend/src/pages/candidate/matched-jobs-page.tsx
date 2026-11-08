@@ -63,8 +63,8 @@ export function MatchedJobsPage() {
             title="Bạn chưa có CV"
             description="Hãy tải CV lên hoặc tạo CV mới để hệ thống gợi ý việc phù hợp."
             action={
-              <ButtonLink to="/viec-lam" className="h-11 px-5 font-bold uppercase">
-                Xem việc làm
+              <ButtonLink to="/cv" className="h-11 px-5 font-bold uppercase">
+                Tải CV lên
               </ButtonLink>
             }
           />
@@ -158,7 +158,7 @@ export function MatchedJobsPage() {
                   )}
                 </Card>
                 <aside aria-live="polite" className="lg:sticky lg:top-22">
-                  {selected && <MatchDetail match={selected} />}
+                  {selected && <MatchDetail match={selected} cvId={data?.cv.id} />}
                 </aside>
               </div>
             )}

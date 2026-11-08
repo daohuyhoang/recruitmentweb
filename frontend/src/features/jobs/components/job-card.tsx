@@ -48,7 +48,9 @@ export function JobCard({ job }: { job: JobSummary }) {
 
       <div className="mt-5 flex items-center justify-between border-t pt-4 text-[13px] text-muted-foreground">
         <span className={cn(daysLeft <= 7 && "font-medium text-warning")}>
-          {daysLeft <= 7 ? (
+          {daysLeft < 0 ? (
+            "Đã hết hạn"
+          ) : daysLeft <= 7 ? (
             `Còn ${daysLeft} ngày`
           ) : (
             <>

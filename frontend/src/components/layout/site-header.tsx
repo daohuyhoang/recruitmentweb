@@ -1,4 +1,4 @@
-import { ChevronDown, LogOut, Menu, Moon, Sparkles, Sun, X } from "lucide-react"
+import { Bookmark, ChevronDown, FileText, LogOut, Menu, Moon, Send, Sparkles, Sun, UserRound, X } from "lucide-react"
 import { useState } from "react"
 import { Link, NavLink, useNavigate } from "react-router-dom"
 
@@ -59,9 +59,21 @@ function UserMenu() {
             <DropdownMenuItem render={<Link to="/viec-phu-hop" />}>
               <Sparkles /> Việc phù hợp với CV
             </DropdownMenuItem>
-            <DropdownMenuSeparator />
+            <DropdownMenuItem render={<Link to="/cv" />}>
+              <FileText /> CV của tôi
+            </DropdownMenuItem>
+            <DropdownMenuItem render={<Link to="/ho-so-da-nop" />}>
+              <Send /> Hồ sơ đã nộp
+            </DropdownMenuItem>
+            <DropdownMenuItem render={<Link to="/viec-da-luu" />}>
+              <Bookmark /> Việc đã lưu
+            </DropdownMenuItem>
           </>
         )}
+        <DropdownMenuItem render={<Link to="/tai-khoan" />}>
+          <UserRound /> Tài khoản
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem
           onClick={() => {
             logout()
